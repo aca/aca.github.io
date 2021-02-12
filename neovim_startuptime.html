@@ -401,7 +401,7 @@ let g:loaded_spellfile_plugin  = 1
 let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
 let g:loaded_tutor_mode_plugin = 1
-let g:loaded_remote_plugins    = 1</code></pre></div><h2 id="visual-settings">Visual settings</h2><p>These kinds of visual helpers cause too much screen redraw and cause significant lag on large files. Turn it on when you need it.</p><div class="pandoc-code nosyntax"><pre><code>set nonumber
+let g:loaded_remote_plugins    = 1</code></pre></div><h2 id="visual-settings">Visual settings</h2><p>These kinds of visual helpers cause too much screen redraw and significant lag on large files. Turn it on when you need it.</p><div class="pandoc-code nosyntax"><pre><code>set nonumber
 set norelativenumber
 set nocursorcolumn
 set nocursorline</code></pre></div><hr /><p>Syntax highlighting of vim uses regex match. I believe it is one of the slowest operations in vim but there’s not much we can do with it. But these options might help a bit.</p><p>And, if syntax file is slow, <code>foldmethod=syntax</code> might also cause a lot of issues for large files like megabytes of json or minimized javascript codes.</p><div class="pandoc-code nosyntax"><pre><code>set synmaxcol=200
