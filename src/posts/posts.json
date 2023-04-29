@@ -1,5 +1,5 @@
 {
-  "layout" : "post",
-  "permalink" : "/archive/{{ title | slug }}/",
-  "tags" : ["posts"]
+  "layout": "post",
+  "permalink": "/posts/{{ title | slug }}/",
+  "tags": ["posts"]
 }

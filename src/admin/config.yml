@@ -87,10 +87,4 @@ collections:
           widget: "object"
           required: false
           fields:
-            - { label: "Twitter", name: "twitter", widget: "string", required: false }
-            - { label: "Facebook", name: "facebook", widget: "string", required: false }
-            - { label: "Instagram", name: "instagram", widget: "string", required: false }
-            - { label: "Pinterest", name: "pinterest", widget: "string", required: false }
-            - { label: "Reddit", name: "reddit", widget: "string", required: false }
             - { label: "GitHub", name: "github", widget: "string", required: false }
-            - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }

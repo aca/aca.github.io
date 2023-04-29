@@ -42,11 +42,11 @@
     response.json().then((rawIndex) => {
       const searchField = document.getElementById("searchField");
       let query = false;
-      
+
       window.searchIndex = elasticlunr.Index.load(rawIndex);
-      if (query = getParameterByName('q')) {
-        searchField.value = query.split(/\/|-|_+/).join(' ').trim()
-        search({ "target" : { "value" : searchField.value }});
+      if (query = getParameterByName("q")) {
+        searchField.value = query.split(/\/|-|_+/).join(" ").trim();
+        search({ "target": { "value": searchField.value } });
       }
       searchField.addEventListener("input", search);
     })
@@ -54,9 +54,10 @@
 })(window, document);
 
 function getParameterByName(name, url = window.location.href) {
-  name = name.replace(/[\[\]]/g, '\\$&');
-  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'), results = regex.exec(url);
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
   if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  if (!results[2]) return "";
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
