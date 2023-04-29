@@ -1,7 +1,7 @@
 ---
 title: introduction to blog
 date: 2023-04-30
-tag:
+tags:
     - aca.github.io
 ---
 
