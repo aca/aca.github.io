@@ -13,8 +13,17 @@
   
   <entry>
     <title>undefined</title>
+    <link href="https://aca.github.io/posts/introduction-to-blog/"/>
+    <updated>2023-04-30T00:00:00Z</updated>
+    <id>https://aca.github.io/posts/introduction-to-blog/</id>
+    <content type="html">&lt;section&gt;&lt;p&gt;TODO&lt;/p&gt;
+&lt;/section&gt;</content>
+  </entry>
+  
+  <entry>
+    <title>undefined</title>
     <link href="https://aca.github.io/posts/zettelkasten/"/>
-    <updated>2023-04-28T00:00:00Z</updated>
+    <updated>2023-04-30T00:00:00Z</updated>
     <id>https://aca.github.io/posts/zettelkasten/</id>
     <content type="html">&lt;section&gt;&lt;p&gt;Zettelkasten is the way to organize notes.
 While idea itself is extremely simple, details of how the system should work is not clear.
@@ -75,7 +84,7 @@ Right now, I’m just keep writing things in markdown, editing in vim, searching
   <entry>
     <title>undefined</title>
     <link href="https://aca.github.io/posts/go-channel-patterns/"/>
-    <updated>2023-04-29T18:30:07Z</updated>
+    <updated>2023-04-30T00:00:00Z</updated>
     <id>https://aca.github.io/posts/go-channel-patterns/</id>
     <content type="html">&lt;section&gt;&lt;p&gt;Channel in go always amaze me how simple is to solve concurrency issues. Here’s an example.&lt;/p&gt;
 &lt;p&gt;When writing language server, I had to generate diagnostic report based on document changes with &lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_diagnostic&quot;&gt;textDocument/diagnostic&lt;/a&gt;.
@@ -149,15 +158,6 @@ discard 4, queued 5
 [diag] start 5
 [diag] end 5
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/section&gt;</content>
-  </entry>
-  
-  <entry>
-    <title>undefined</title>
-    <link href="https://aca.github.io/posts/introduction-to-blog/"/>
-    <updated>2023-04-30T00:00:00Z</updated>
-    <id>https://aca.github.io/posts/introduction-to-blog/</id>
-    <content type="html">&lt;section&gt;&lt;p&gt;TODO&lt;/p&gt;
 &lt;/section&gt;</content>
   </entry>
 </feed>

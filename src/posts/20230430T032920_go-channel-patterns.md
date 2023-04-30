@@ -1,5 +1,6 @@
 ---
 title: go channel patterns
+date: 2023-04-30
 tags:
     - aca.github.io
 ---
