@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>aca.github.io</title>
+  <subtitle>undefined</subtitle>
+  <link href="https://aca.github.io/feed.xml" rel="self"/>
+  <link href="https://aca.github.io"/>
+  <updated>2023-04-30T00:00:00Z</updated>
+  <id>https://aca.github.io</id>
+  <author>
+    <name>aca</name>
+    <email>acadx0@gmail.com</email>
+  </author>
+  
+  <entry>
+    <title>undefined</title>
+    <link href="https://aca.github.io/posts/zettelkasten/"/>
+    <updated>2023-04-28T00:00:00Z</updated>
+    <id>https://aca.github.io/posts/zettelkasten/</id>
+    <content type="html">&lt;section&gt;&lt;p&gt;Zettelkasten is the way to organize notes.
+While idea itself is extremely simple, details of how the system should work is not clear.
+Right now, I’m just keep writing things in markdown, editing in vim, searching with ripgrep + fzf.&lt;/p&gt;
+&lt;p&gt;System I want is&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;well-defined, minimal protocols.&lt;/li&gt;
+&lt;li&gt;Requires minimal metadata or configurations for it.&lt;/li&gt;
+&lt;li&gt;future-proof, tools may change but idea should remain.&lt;/li&gt;
+&lt;li&gt;Scalability, system should work as usual even if you join whole zettels of thousands of people.&lt;/li&gt;
+&lt;li&gt;Hackable by all people. Which means it should be written in general purposed, easy language and have simple architecture.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;p&gt;Ref&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://giscalablethub.com/srid/neuron&quot;&gt;neuron&lt;/a&gt;(dead)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;integration with pandoc, focused on CLI, static site generator.&lt;/li&gt;
+&lt;li&gt;LSP with &lt;a href=&quot;https://github.com/aca/neuron-language-server&quot;&gt;aca/neuron-language-server&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;obsidian&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fine mobile support&lt;/li&gt;
+&lt;li&gt;excalidraw integration&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://news.ycombinator.com/item?id=34066824&quot;&gt;obsidian canvas&lt;/a&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;git integration&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;git annex&lt;/li&gt;
+&lt;li&gt;git as a database approach &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;hand writing&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;workflow&lt;/li&gt;
+&lt;li&gt;e-ink devices&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://roamresearch.com/&quot;&gt;Roam&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.orgroam.com/&quot;&gt;Org-Roam&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Secrets&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://news.ycombinator.com/item?id=32066513&quot;&gt;Denote&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Extremely well documented protocol.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;</content>
+  </entry>
+  
+  <entry>
+    <title>undefined</title>
+    <link href="https://aca.github.io/posts/go-channel-patterns/"/>
+    <updated>2023-04-29T18:30:07Z</updated>
+    <id>https://aca.github.io/posts/go-channel-patterns/</id>
+    <content type="html">&lt;section&gt;&lt;p&gt;Channel in go always amaze me how simple is to solve concurrency issues. Here’s an example.&lt;/p&gt;
+&lt;p&gt;When writing language server, I had to generate diagnostic report based on document changes with &lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_diagnostic&quot;&gt;textDocument/diagnostic&lt;/a&gt;.
+As document changes on every keyboard input and diagnostic normally requires heavy computation, there should be a way to throttle request.
+Throttling is quite tricky if we want to make sure that diagnostic report is based on last modification.&lt;/p&gt;
+&lt;p&gt;Here’s challenge.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;No lock. Just channels.&lt;/li&gt;
+&lt;li&gt;Client makes request on every input.&lt;/li&gt;
+&lt;li&gt;Server only handles one request, enqueue next request.&lt;/li&gt;
+&lt;li&gt;If another request comes in, server should discard waiting request and enqueue.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here’s my answer with two channels.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-go&quot;&gt;package main
+
+import (
+    &quot;log&quot;
+    &quot;time&quot;
+)
+
+var (
+    DiagChan    chan int = make(chan int, 1)
+    DiagReqChan chan int = make(chan int)
+)
+
+func Diagnostic(v int) {
+    log.Println(&quot;[diag] start&quot;, v)
+    defer log.Println(&quot;[diag] end&quot;, v)
+    time.Sleep(time.Second)
+}
+
+func RunDiagnostic() {
+    for v := range DiagChan {
+        Diagnostic(v)
+    }
+}
+
+func HandleDiagnosticRequest() {
+    for req := range DiagReqChan {
+        select {
+        case DiagChan &amp;#x3C;- req:
+            log.Println(&quot;queued request&quot;, req)
+        default:
+            reqDiscarded := &amp;#x3C;-DiagChan
+            log.Printf(&quot;discard %v, queued %v&quot;, reqDiscarded, req)
+            DiagChan &amp;#x3C;- req
+        }
+    }
+}
+
+func main() {
+    go RunDiagnostic()
+    go HandleDiagnosticRequest()
+    go func() {
+        DiagReqChan &amp;#x3C;- 1
+        DiagReqChan &amp;#x3C;- 2
+        DiagReqChan &amp;#x3C;- 3
+        DiagReqChan &amp;#x3C;- 4
+        DiagReqChan &amp;#x3C;- 5
+    }()
+    select {}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;queued request 1
+queued request 2
+discard 2, queued 3
+discard 3, queued 4
+discard 4, queued 5
+[diag] start 1
+[diag] end 1
+[diag] start 5
+[diag] end 5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/section&gt;</content>
+  </entry>
+  
+  <entry>
+    <title>undefined</title>
+    <link href="https://aca.github.io/posts/introduction-to-blog/"/>
+    <updated>2023-04-30T00:00:00Z</updated>
+    <id>https://aca.github.io/posts/introduction-to-blog/</id>
+    <content type="html">&lt;section&gt;&lt;p&gt;TODO&lt;/p&gt;
+&lt;/section&gt;</content>
+  </entry>
+</feed>

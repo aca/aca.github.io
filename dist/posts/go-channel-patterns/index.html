@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+		<!-- Required meta tags -->
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>aca.github.io</title>
+<meta name="description" content="undefined">
+<link type="application/atom+xml" rel="alternate" href="https://aca.github.io/feed.xml" title="aca.github.io">
+
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/tufte-css/et-book/et-book-roman-line-figures/et-book-roman-line-figures.woff" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/tufte-css/et-book/et-book-display-italic-old-style-figures/et-book-display-italic-old-style-figures.woff" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/tufte-css/et-book/et-book-bold-line-figures/et-book-bold-line-figures.woff" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/tufte-css/et-book/et-book-roman-old-style-figures/et-book-roman-old-style-figures.woff" />
+
+
+
+
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="stylesheet" href="/assets/tufte-css/tufte.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/3434e84155.css">
+
+  </head>
+  <body>
+		<article>
+		<h1>go channel patterns
+</h1>
+		
+				<section><p>Channel in go always amaze me how simple is to solve concurrency issues. Here’s an example.</p>
+<p>When writing language server, I had to generate diagnostic report based on document changes with <a href="https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_diagnostic">textDocument/diagnostic</a>.
+As document changes on every keyboard input and diagnostic normally requires heavy computation, there should be a way to throttle request.
+Throttling is quite tricky if we want to make sure that diagnostic report is based on last modification.</p>
+<p>Here’s challenge.</p>
+<ul>
+<li>No lock. Just channels.</li>
+<li>Client makes request on every input.</li>
+<li>Server only handles one request, enqueue next request.</li>
+<li>If another request comes in, server should discard waiting request and enqueue.</li>
+</ul>
+<p>Here’s my answer with two channels.</p>
+<pre><code class="language-go">package main
+
+import (
+    "log"
+    "time"
+)
+
+var (
+    DiagChan    chan int = make(chan int, 1)
+    DiagReqChan chan int = make(chan int)
+)
+
+func Diagnostic(v int) {
+    log.Println("[diag] start", v)
+    defer log.Println("[diag] end", v)
+    time.Sleep(time.Second)
+}
+
+func RunDiagnostic() {
+    for v := range DiagChan {
+        Diagnostic(v)
+    }
+}
+
+func HandleDiagnosticRequest() {
+    for req := range DiagReqChan {
+        select {
+        case DiagChan &#x3C;- req:
+            log.Println("queued request", req)
+        default:
+            reqDiscarded := &#x3C;-DiagChan
+            log.Printf("discard %v, queued %v", reqDiscarded, req)
+            DiagChan &#x3C;- req
+        }
+    }
+}
+
+func main() {
+    go RunDiagnostic()
+    go HandleDiagnosticRequest()
+    go func() {
+        DiagReqChan &#x3C;- 1
+        DiagReqChan &#x3C;- 2
+        DiagReqChan &#x3C;- 3
+        DiagReqChan &#x3C;- 4
+        DiagReqChan &#x3C;- 5
+    }()
+    select {}
+}
+</code></pre>
+<pre><code>queued request 1
+queued request 2
+discard 2, queued 3
+discard 3, queued 4
+discard 4, queued 5
+[diag] start 1
+[diag] end 1
+[diag] start 5
+[diag] end 5
+</code></pre>
+</section>
+		</article>
+		<footer>
+  <p class="social-links">
+    <a href="/"><span class="fas fa-home"></span></a>
+    
+    
+    
+    
+    <a href="https://github.com/aca"><span class="fab fa-github-square"></span></a>
+    <a href="mailto:acadx0@gmail.com"><span class="fab fa-envelope-square"></span></a>
+    <a href="/feed.xml"><span class="fas fa-rss-square"></span></a>
+    <a href="/search"><span class="fas fa-search"></span></a>
+  </p>
+</footer>
+
+  </body>
+</html>
