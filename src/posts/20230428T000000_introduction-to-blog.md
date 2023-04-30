@@ -1,8 +1,1 @@
----
-title: introduction to blog
-date: 2023-04-28
-tags:
-    - aca.github.io
----
-
-TODO
+/home/rok/src/zk/20230428T000000_introduction-to-blog.md

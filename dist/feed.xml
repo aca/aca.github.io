@@ -83,21 +83,19 @@ Right now, I’m just keep writing things in markdown, editing in vim, searching
   
   <entry>
     <title>undefined</title>
-    <link href="https://aca.github.io/posts/go-channel-patterns/"/>
+    <link href="https://aca.github.io/posts/go-channel-quiz/"/>
     <updated>2023-04-30T00:00:00Z</updated>
-    <id>https://aca.github.io/posts/go-channel-patterns/</id>
-    <content type="html">&lt;section&gt;&lt;p&gt;Channel in go always amaze me how simple is to solve concurrency issues. Here’s an example.&lt;/p&gt;
-&lt;p&gt;When writing language server, I had to generate diagnostic report based on document changes with &lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_diagnostic&quot;&gt;textDocument/diagnostic&lt;/a&gt;.
-As document changes on every keyboard input and diagnostic normally requires heavy computation, there should be a way to throttle request.
-Throttling is quite tricky if we want to make sure that diagnostic report is based on last modification.&lt;/p&gt;
-&lt;p&gt;Here’s challenge.&lt;/p&gt;
+    <id>https://aca.github.io/posts/go-channel-quiz/</id>
+    <content type="html">&lt;section&gt;&lt;p&gt;Channel in go always amazes me when solving concurrency issues. Here’s an example.&lt;/p&gt;
+&lt;p&gt;When writing &lt;a href=&quot;https://microsoft.github.io/language-server-protocol/&quot;&gt;language server&lt;/a&gt;, I had to generate a diagnostic report based on document changes with textDocument/diagnostic&lt;label for=&quot;sd-less-than-a-href&quot; class=&quot;margin-toggle sidenote-number&quot;&gt;&lt;/label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sd-less-than-a-href&quot; class=&quot;margin-toggle&quot; /&gt;&lt;span class=&quot;sidenote&quot;&gt;&lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_diagnostic&quot;&gt;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_diagnostic&lt;/a&gt;&lt;/span&gt;.
+As document changes on every keyboard input and diagnostic normally require heavy computation, there should be a way to throttle requests.
+Throttling is quite tricky if we want to make sure that the diagnostic report is based on the last modification.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;No lock. Just channels.&lt;/li&gt;
-&lt;li&gt;Client makes request on every input.&lt;/li&gt;
-&lt;li&gt;Server only handles one request, enqueue next request.&lt;/li&gt;
-&lt;li&gt;If another request comes in, server should discard waiting request and enqueue.&lt;/li&gt;
+&lt;li&gt;Server only handles one request, put the next request in the queue.&lt;/li&gt;
+&lt;li&gt;If another request comes in, the server should discard waiting request and enqueue the latest one.&lt;/li&gt;
+&lt;li&gt;No lock. No polling.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Here’s my answer with two channels.&lt;/p&gt;
+&lt;p&gt;Here’s my answer with one unbuffered, and one buffered channel.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-go&quot;&gt;package main
 
 import (
@@ -110,15 +108,11 @@ var (
     DiagReqChan chan int = make(chan int)
 )
 
-func Diagnostic(v int) {
-    log.Println(&quot;[diag] start&quot;, v)
-    defer log.Println(&quot;[diag] end&quot;, v)
-    time.Sleep(time.Second)
-}
-
 func RunDiagnostic() {
     for v := range DiagChan {
-        Diagnostic(v)
+        log.Println(&quot;[diag] start&quot;, v)
+        defer log.Println(&quot;[diag] end&quot;, v)
+        time.Sleep(time.Second)
     }
 }
 

@@ -10,4 +10,4 @@ interesting ideas.
 
 [^1]: https://en.wikipedia.org/wiki/Zettelkasten
 
-{%- import "list.njk" as list -%} {{ list.details(collections.posts) }}
+{%- import "list.njk" as list -%} {{ list.details(collections.posts | reverse) }}
