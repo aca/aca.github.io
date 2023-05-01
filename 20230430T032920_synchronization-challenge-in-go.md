@@ -6,26 +6,29 @@ tags:
   - go
 ---
 
-Channel in go always amazes me when solving concurrency issues. Here's an example.
+Channel in go always amazes me when solving concurrency issues. Here's an
+example.
 
-When writing [language
-server](https://microsoft.github.io/language-server-protocol/), I had to
-generate a diagnostic report based on document changes with
+When writing
+[language server](https://microsoft.github.io/language-server-protocol/), I had
+to generate a diagnostic report based on document changes with
 textDocument/diagnostic[^1]. As document changes on every keyboard input and
-diagnostic normally require heavy computation, there should be a way to
-throttle requests. We don't want to mess up the UI with wrong diagnostics.
-It is quite tricky in this situation.
+diagnostic normally require heavy computation, there should be a way to throttle
+requests. We don't want to mess up the UI with wrong diagnostics. It is quite
+tricky in this situation.
 
 [^1]: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_diagnostic
 
 - Server only handles one request, put the next request in the queue.
-- If another request comes in, the server should discard waiting request before enqueue.
+- If another request comes in, the server should discard waiting request before
+  enqueue.
 - No lock. No sleep.
 
 Here's my answer with one unbuffered, and one buffered channel.
 
 - `DiagChan` is the main work queue with size of 1.
-- `DiagReqChan` is the channel that actually receives request and does throttling.
+- `DiagReqChan` is the channel that actually receives request and does
+  throttling.
 
 ```go
 package main
@@ -73,7 +76,6 @@ func main() {
 	}()
 	select {}
 }
-
 ```
 
 ```
