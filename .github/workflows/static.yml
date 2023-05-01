@@ -49,7 +49,7 @@ jobs:
       - run: | 
           set -euxo pipefail
           rm -rfv src/posts || true
-          mkdir -p src/posts || true
+          mkdir -vp src/posts || true
           git fetch origin posts --depth 1
           git ls-tree posts --name-only | grep -E '.*\.md' | xargs -I@ bash -c "git show posts:@ > src/posts/@"
           pnpm run build
