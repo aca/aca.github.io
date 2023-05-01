@@ -41,7 +41,7 @@ jobs:
           rm -rfv src/posts || true
           mkdir -vp src/posts || true
           git fetch origin posts --depth 1
-          git ls-tree origin/posts --name-only | grep -E '.*\.md' | xargs -I@ bash -c "git show posts:@ > src/posts/@"
+          git ls-tree origin/posts --name-only | grep -E '.*\.md' | xargs -I@ bash -c "git show origin/posts:@ > src/posts/@"
 
       - uses: pnpm/action-setup@v2
         with:
