@@ -48,8 +48,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: | 
           set -euxo pipefail
-          git fetch origin main --depth 1
-          git ls-tree main --name-only | xargs -I{} bash -c "git show main:{} > src/posts/{}"
+          git fetch origin posts --depth 1
+          git ls-tree posts --name-only | xargs -I{} bash -c "git show posts:{} > src/posts/{}"
           pnpm run build
       - uses: stefanzweifel/git-auto-commit-action@v4
       - name: Setup Pages
