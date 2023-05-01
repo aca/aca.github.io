@@ -36,7 +36,6 @@ jobs:
         with:
           ref: main
 
-      - run: pnpm install --frozen-lockfile
       - run: | 
           set -euxo pipefail
           rm -rfv src/posts || true
@@ -52,6 +51,8 @@ jobs:
         with:
           cache: 'pnpm'
           node-version: '18'
+
+      - run: pnpm install --frozen-lockfile
 
       - run: pnpm run build
 
