@@ -33,15 +33,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: publish
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.1.0
       - uses: actions/setup-node@v3
         with:
           cache: 'pnpm'
           node-version: '18'
-      - run: |
+      - run: pnpm install --frozen-lockfile
       - run: | 
           git fetch origin main --depth 1
           git ls-tree main --name-only | xargs -I@ bash -c "git show main:{} > src/posts/{}"
-          pnpm install
           pnpm run build
       - name: Setup Pages
         uses: actions/configure-pages@v3
