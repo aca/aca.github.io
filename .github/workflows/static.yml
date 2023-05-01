@@ -33,9 +33,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: publish
-      - uses: actions/setup-node@main
+      - uses: actions/setup-node@v3
         with:
           cache: 'pnpm'
+          node-version: '18'
       - run: |
       - run: | 
           git fetch origin main --depth 1
