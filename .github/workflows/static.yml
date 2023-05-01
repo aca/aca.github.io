@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["posts"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,26 +32,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: publish
+          ref: main
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8.1.0
+
       - uses: actions/setup-node@v3
         with:
           cache: 'pnpm'
           node-version: '18'
+
       - run: pnpm install --frozen-lockfile
       - run: | 
           set -euxo pipefail
           git fetch origin main --depth 1
           git ls-tree main --name-only | xargs -I{} bash -c "git show main:{} > src/posts/{}"
           pnpm run build
+      - uses: stefanzweifel/git-auto-commit-action@v4
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
           path: 'dist'
       - name: Deploy to GitHub Pages
         id: deployment
