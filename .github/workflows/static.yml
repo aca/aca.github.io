@@ -31,6 +31,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: publish
+      - uses: actions/setup-node@main
+        with:
+          cache: 'pnpm'
+      - run: |
+      - run: | 
+          git fetch origin main --depth 1
+          git ls-tree main --name-only | xargs -I@ bash -c "git show main:{} > src/posts/{}"
+          pnpm install
+          pnpm run build
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
