@@ -36,6 +36,14 @@ jobs:
         with:
           ref: main
 
+      - run: pnpm install --frozen-lockfile
+      - run: | 
+          set -euxo pipefail
+          rm -rfv src/posts || true
+          mkdir -vp src/posts || true
+          git fetch origin posts --depth 1
+          git ls-tree origin:posts --name-only | grep -E '.*\.md' | xargs -I@ bash -c "git show posts:@ > src/posts/@"
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8.1.0
@@ -45,14 +53,8 @@ jobs:
           cache: 'pnpm'
           node-version: '18'
 
-      - run: pnpm install --frozen-lockfile
-      - run: | 
-          set -euxo pipefail
-          rm -rfv src/posts || true
-          mkdir -vp src/posts || true
-          git fetch origin posts --depth 1
-          git ls-tree posts --name-only | grep -E '.*\.md' | xargs -I@ bash -c "git show posts:@ > src/posts/@"
-          pnpm run build
+      - run: pnpm run build
+
       - uses: stefanzweifel/git-auto-commit-action@v4
       - name: Setup Pages
         uses: actions/configure-pages@v3
