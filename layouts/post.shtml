@@ -1,0 +1,13 @@
+<extend template="base.shtml">
+<head id="head">
+</head>
+<body id="body">
+  <article>
+    <h1 :text="$page.title"></h1>
+    <p class="subtitle">
+      <span :text="$page.date.format('January 2, 2006')"></span>
+    </p>
+    <section :html="$page.content()">
+    </section>
+  </article>
+</body>

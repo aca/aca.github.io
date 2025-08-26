@@ -1,0 +1,158 @@
+/* Custom CSS for better desktop centering and mobile responsiveness */
+
+/* Override Tufte CSS defaults for better centering */
+body {
+    width: 87.5%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+}
+
+article {
+    position: relative;
+    padding: 1rem 0;
+}
+
+/* Better header spacing */
+header {
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+}
+
+header nav {
+    font-size: 1.1rem;
+}
+
+/* Adjust main content width for better centering */
+@media (min-width: 760px) {
+    body {
+        width: 87.5%;
+        padding-left: 12.5%;
+        padding-right: 12.5%;
+    }
+    
+    article {
+        max-width: 1400px;
+    }
+    
+    h1 {
+        max-width: 100%;
+    }
+    
+    p, footer, table, blockquote, pre, dl, ol, ul {
+        width: 60%;
+    }
+    
+    pre, code {
+        width: 62.5%;
+    }
+    
+    .fullwidth {
+        width: 90%;
+    }
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 760px) {
+    body {
+        width: 90%;
+        padding-left: 5%;
+        padding-right: 5%;
+        font-size: 1rem;
+    }
+    
+    article {
+        width: 100%;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    p, footer, table, blockquote, pre, dl, ol, ul {
+        width: 100%;
+        font-size: 1rem;
+    }
+    
+    /* Hide margin notes on mobile, show inline */
+    .marginnote, .sidenote {
+        display: inline;
+        float: none;
+        margin: 0;
+        padding: 0.5rem 0;
+        width: 100%;
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .marginnote:before {
+        content: " (";
+    }
+    
+    .marginnote:after {
+        content: ")";
+    }
+    
+    /* Adjust code blocks for mobile */
+    pre {
+        width: 100%;
+        overflow-x: auto;
+        font-size: 0.9rem;
+    }
+    
+    code {
+        font-size: 0.9rem;
+    }
+}
+
+/* Better spacing for blog post list */
+.post-item {
+    margin-bottom: 1.5rem;
+}
+
+.post-item p {
+    margin-bottom: 0.5rem;
+}
+
+/* Ensure links are easily tappable on mobile */
+@media (max-width: 760px) {
+    a {
+        padding: 0.2rem 0;
+        display: inline-block;
+    }
+    
+    header nav a {
+        padding: 0.5rem 0.3rem;
+    }
+}
+
+/* Better typography on smaller screens */
+@media (max-width: 480px) {
+    body {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+    
+    h3 {
+        font-size: 1.1rem;
+    }
+}

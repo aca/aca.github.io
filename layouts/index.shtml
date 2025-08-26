@@ -1,0 +1,16 @@
+<extend template="base.shtml">
+<head id="head">
+</head>
+<body id="body">
+  <article>
+    <h1 :text="$site.title"></h1>
+    <section>
+      <div :loop="$page.subpages()" class="post-item">
+        <p>
+          <a href="$loop.it.link()" :text="$loop.it.title"></a>
+          <span class="marginnote" :text="$loop.it.date.format('Jan 2, 2006')"></span>
+        </p>
+      </div>
+    </section>
+  </article>
+</body>
