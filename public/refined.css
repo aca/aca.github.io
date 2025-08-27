@@ -117,21 +117,23 @@ header nav a:hover {
     text-decoration: none;
 }
 
-/* Navigation - Clean and minimal */
+/* Navigation - Clean and minimal with Harvard font style */
 header {
     margin-bottom: var(--space-xl);
 }
 
 header nav {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.75rem;
-    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 500;
 }
 
 header nav a {
     color: var(--text);
     text-decoration: none;
-    margin-right: var(--space-lg);
+    margin-right: var(--space-xl);
 }
 
 header nav a:hover {
@@ -141,9 +143,8 @@ header nav a:hover {
 
 /* Simple separator */
 header nav a:not(:last-child)::after {
-    content: '|';
-    margin-left: var(--space-lg);
-    opacity: 0.3;
+    content: '';
+    margin-left: var(--space-xl);
 }
 
 /* Lists */

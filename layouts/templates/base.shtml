@@ -10,8 +10,8 @@
   <body id="body">
     <header>
       <nav>
-        <a href="$site.page('').link()">Home</a>
-        <a href="$site.page('about').link()">About</a>
+        <a href="$site.page('').link()">HOME</a>
+        <a href="$site.page('about').link()">ABOUT</a>
       </nav>
     </header>
     <super>
