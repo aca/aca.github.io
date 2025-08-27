@@ -1,0 +1,28 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" fill="#f8f8f8" stroke="#ddd" stroke-width="2"/>
+  <text x="300" y="50" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#333">
+    Information Density Chart
+  </text>
+  
+  <!-- Chart bars -->
+  <rect x="100" y="100" width="60" height="200" fill="#4A90E2"/>
+  <rect x="200" y="150" width="60" height="150" fill="#4A90E2"/>
+  <rect x="300" y="120" width="60" height="180" fill="#4A90E2"/>
+  <rect x="400" y="180" width="60" height="120" fill="#4A90E2"/>
+  
+  <!-- Labels -->
+  <text x="130" y="330" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#666">Q1</text>
+  <text x="230" y="330" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#666">Q2</text>
+  <text x="330" y="330" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#666">Q3</text>
+  <text x="430" y="330" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#666">Q4</text>
+  
+  <!-- Y-axis labels -->
+  <text x="70" y="105" text-anchor="end" font-family="Georgia, serif" font-size="12" fill="#666">100</text>
+  <text x="70" y="205" text-anchor="end" font-family="Georgia, serif" font-size="12" fill="#666">50</text>
+  <text x="70" y="305" text-anchor="end" font-family="Georgia, serif" font-size="12" fill="#666">0</text>
+  
+  <!-- Grid lines -->
+  <line x1="80" y1="100" x2="500" y2="100" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="80" y1="200" x2="500" y2="200" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="80" y1="300" x2="500" y2="300" stroke="#333" stroke-width="2"/>
+</svg>

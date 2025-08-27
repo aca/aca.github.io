@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head id="head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <title>Welcome to Zine!</title>
+    <link type="text/css" rel="stylesheet" href="/refined.css">
+    
+  <style>
+    .feed {
+      margin-top: 2em;
+    }
+
+    .feed>div {
+      margin: 0 -20px;
+      padding: 5px 20px;
+      margin-bottom: 1em;
+    }
+
+    .feed>div>h2 {
+      margin-top: 0.4em;
+    }
+
+    .feed>div[id]:target {
+      animation: pulse-div 2s ease-in-out 1 forwards;
+    }
+
+    @keyframes pulse-div {
+
+      0%,
+      100% {
+        background-color: #222;
+      }
+
+      50% {
+        background-color: #111;
+      }
+    }
+  </style>
+
+  </head>
+  <body id="body">
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+      </nav>
+    </header>
+    
+  <h1 class="title">Devlog - 1989</h1>
+  <div><div id="about"><h2>About this Devlog</h2><p>This is a non-exhaustive, curated list of changes meant to help users quickly see what has improved since they last checked.</p><p>You can <a href="/devlog/index.xml">subscribe the latest devlog via RSS</a>.</p><p>This page lists entries for the year 1989, for past or future entries consult the <a href="/devlog/">devlog archive</a>.</p></div></div>
+  <div class="feed">
+    <div id="1989-01-01T00:00:00">
+      <span>January 01, 1989</span>
+      <h2><a href="#1989-01-01T00:00:00">Hello 1989
+</a></h2>
+      <p>This is a sample entry.</p>
+    </div>
+  </div>
+
+  </body>
+</html>

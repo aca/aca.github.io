@@ -5,12 +5,12 @@
   <article>
     <h1 :text="$site.title"></h1>
     <section>
-      <div :loop="$page.subpages()" class="post-item">
-        <p>
+      <ul :loop="$page.subpages()">
+        <li>
           <a href="$loop.it.link()" :text="$loop.it.title"></a>
-          <span class="marginnote" :text="$loop.it.date.format('Jan 2, 2006')"></span>
-        </p>
-      </div>
+          <span class="date"> — <span :text="$loop.it.date.format('Jan 2, 2006')"></span></span>
+        </li>
+      </ul>
     </section>
   </article>
 </body>

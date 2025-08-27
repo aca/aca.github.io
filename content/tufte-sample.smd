@@ -1,0 +1,125 @@
+---
+.title = "The Art of Digital Typography",
+.date = @date("2025-01-27T10:00:00"),
+.author = "Edward Tufte",
+.layout = "post.shtml",
+.draft = false,
+---
+
+This is a demonstration of Tufte CSS styling with images and sidenotes. The design is based on the work of Edward Tufte and his books on information design.
+
+## The Visual Display of Information
+
+One of the most distinctive features of Tufte's style is the extensive use of sidenotes[^sidenote1] instead of footnotes. This keeps the reader's attention focused on the main text while providing easy access to supplementary information.
+
+[^sidenote1]: Sidenotes are like footnotes, except they don't force the reader to jump to the bottom of the page. They appear in the margin, making them immediately accessible.
+
+### Working with Images
+
+Images can be displayed in several ways. Here's a standard image that fits within the main column:
+
+![A sample chart showing quarterly data](/images/sample-chart.svg)
+*This is a regular figure caption that appears below the image.*
+
+## Margin Notes and Figures
+
+Sometimes you want to place notes in the margin without numbering them[^marginnote1]. These margin notes can contain any content, including small images or charts.
+
+[^marginnote1]: This is a margin note. Notice there is no number preceding it. These are useful for commentary that relates to a specific part of the text but doesn't require a numbered reference.
+
+### Full-Width Figures
+
+For particularly important or detailed images, you can use the full width of the page:
+
+![A placeholder image showing full width](https://via.placeholder.com/1200x400/E24A4A/FFFFFF?text=Full+Width+Image)
+*This is a full-width figure that extends beyond the main text column. It's useful for displaying detailed charts, maps, or photographs that benefit from the extra space.*
+
+## Mathematical Concepts
+
+Tufte CSS also handles mathematical notation elegantly. For instance, consider the famous Euler's identity: e^(iπ) + 1 = 0[^euler].
+
+[^euler]: Euler's identity is often cited as an example of mathematical beauty, as it links five fundamental mathematical constants in a simple equation.
+
+## Typography and Readability
+
+The choice of typeface is crucial for readability. This theme uses ET Book, a font specifically designed for the screen based on the typeface used in Tufte's books[^font].
+
+[^font]: The font includes proper ligatures, old-style figures, and has been carefully hinted for screen display.
+
+### New Thoughts
+
+**Sometimes you want** to start a paragraph with emphasis to indicate a new section or thought. This is a traditional typographic device that helps guide the reader through the text.
+
+## Code Examples
+
+When including code, it's important to maintain readability while distinguishing it from the main text:
+
+```python
+def calculate_information_density(data, visualization):
+    """Calculate the information density of a visualization."""
+    relevant_data_points = count_relevant_points(data)
+    display_area = visualization.width * visualization.height
+    return relevant_data_points / display_area
+```
+
+This concept of information density[^density] is central to Tufte's philosophy.
+
+[^density]: Maximize the data-to-ink ratio by removing unnecessary visual elements.
+
+## Responsive Design
+
+On smaller screens, sidenotes and margin notes automatically collapse and can be toggled by clicking on the note number. This ensures the design remains functional across all devices while maintaining the elegant typography on larger displays.
+
+### A Note on Images
+
+![Another placeholder image](https://via.placeholder.com/600x300/4AE290/FFFFFF?text=Another+Example)
+
+Images without captions can be placed inline with the text[^images]. The margin provides space for commentary without interrupting the flow.
+
+[^images]: The placement and sizing of images is crucial for maintaining the rhythm and flow of the text.
+
+## Data Visualization Examples
+
+Here's a list of key principles for effective data visualization:
+
+- **Maximize data-ink ratio**: Remove unnecessary graphical elements
+- **Show the data**: Let the data speak for itself without distortion
+- **Provide context**: Include relevant comparisons and benchmarks
+- **Respect the viewer**: Don't manipulate or mislead with graphics
+- **Layer information**: Allow different levels of reading depth
+
+### Sample Data Table
+
+| Quarter | Revenue | Growth | Notes |
+|---------|---------|--------|-------|
+| Q1 2024 | $1.2M   | 15%    | Strong start |
+| Q2 2024 | $1.4M   | 17%    | Exceeded targets |
+| Q3 2024 | $1.3M   | -7%    | Market adjustment |
+| Q4 2024 | $1.6M   | 23%    | Holiday boost |
+
+## Blockquotes and Citations
+
+As Tufte himself wrote:
+
+> "Above all else, show the data. The data is the reason for the existence of the graphic. Everything else is secondary."
+
+This principle guides all aspects of information design[^principle].
+
+[^principle]: This quote encapsulates the fundamental philosophy of data visualization: clarity and truth above decoration.
+
+## Interactive Elements
+
+While this is a static page, the principles of interaction design still apply:
+
+1. **Progressive disclosure**: Start with overview, allow drilling down
+2. **Direct manipulation**: Let users interact with the data itself
+3. **Immediate feedback**: Respond quickly to user actions
+4. **Reversibility**: Allow users to undo and explore freely
+
+## Conclusion
+
+This sample demonstrates the key features of Tufte CSS: sidenotes, margin notes, figure handling, and beautiful typography. The result is a reading experience that respects both the content and the reader's attention.
+
+The beauty of this design lies in its simplicity and focus on content. By moving supplementary information to the margins[^conclusion], the main text remains clean and uncluttered, while still providing rich context and additional details for interested readers.
+
+[^conclusion]: The margin notes system transforms the traditional linear reading experience into something more spatial and flexible, allowing readers to choose their own level of engagement with the material.

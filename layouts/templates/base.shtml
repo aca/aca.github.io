@@ -4,16 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <title :text="$site.title"></title>
-    <link type="text/css" rel="stylesheet" href="$site.asset('tufte.css').link()">
-    <link type="text/css" rel="stylesheet" href="$site.asset('custom.css').link()">
+    <link type="text/css" rel="stylesheet" href="$site.asset('refined.css').link()">
     <super>
   </head>
   <body id="body">
     <header>
       <nav>
-        <a href="$site.page('').link()">home</a>
-        &nbsp;|&nbsp;
-        <a href="$site.page('about').link()">about</a>
+        <a href="$site.page('').link()">Home</a>
+        <a href="$site.page('about').link()">About</a>
       </nav>
     </header>
     <super>

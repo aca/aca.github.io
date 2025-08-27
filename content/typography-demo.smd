@@ -1,0 +1,132 @@
+---
+.title = "Typography and Layout Demo",
+.date = @date("2025-01-27T12:00:00"),
+.author = "Design Team",
+.layout = "post.shtml",
+.draft = false,
+---
+
+This post demonstrates the typography and layout features available in our Tufte-inspired design system.
+
+## Images and Figures
+
+Images are a crucial part of any article. They can be embedded using standard Markdown syntax:
+
+![Sample data visualization chart](/images/sample-chart.svg)
+*Figure 1: Quarterly performance data showing consistent growth patterns across all metrics.*
+
+## Text Formatting
+
+The beauty of good typography lies in its **clarity** and *elegance*. We support various text formatting options:
+
+- **Bold text** for strong emphasis
+- *Italic text* for subtle emphasis  
+- `Inline code` for technical terms
+- ~~Strikethrough~~ for corrections
+
+## Code Blocks
+
+Code examples are essential for technical documentation:
+
+```python
+def fibonacci(n):
+    """Generate Fibonacci sequence up to n terms."""
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    elif n == 2:
+        return [0, 1]
+    
+    sequence = [0, 1]
+    for i in range(2, n):
+        sequence.append(sequence[-1] + sequence[-2])
+    return sequence
+
+# Example usage
+print(fibonacci(10))
+# Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+```
+
+## Lists and Structure
+
+### Ordered Lists
+
+1. First principle: Clarity above all
+2. Second principle: Respect the reader's time
+3. Third principle: Let the content breathe
+
+### Unordered Lists
+
+- Visual hierarchy guides the eye
+- White space is not wasted space
+- Typography should be invisible
+- Content is king
+
+### Nested Lists
+
+- Main category
+  - Subcategory A
+    - Detail 1
+    - Detail 2
+  - Subcategory B
+- Another main category
+  - With its own structure
+
+## Tables for Data
+
+Tables are perfect for presenting structured information:
+
+| Feature | Standard | Premium | Enterprise |
+|---------|----------|---------|------------|
+| Storage | 5 GB | 100 GB | Unlimited |
+| Users | 1 | 10 | Unlimited |
+| Support | Email | Priority | Dedicated |
+| Price | Free | $10/mo | Custom |
+
+## Blockquotes
+
+Great design is about more than aesthetics:
+
+> "Good design is as little design as possible. Less, but better – because it concentrates on the essential aspects, and the products are not burdened with non-essentials."
+> 
+> — Dieter Rams
+
+## Mathematical Notation
+
+While we don't have full LaTeX support, we can still express mathematical concepts clearly:
+
+The quadratic formula: x = (-b ± √(b² - 4ac)) / 2a
+
+Euler's number: e ≈ 2.71828...
+
+The golden ratio: φ = (1 + √5) / 2 ≈ 1.618
+
+## Horizontal Rules
+
+Sometimes you need a visual break between sections:
+
+---
+
+## Links and References
+
+External links can point to [useful resources](https://www.edwardtufte.com/tufte/), while internal links can reference [other posts](/about/) on the site.
+
+## Image Galleries
+
+Multiple images can be arranged sequentially:
+
+![First placeholder](https://via.placeholder.com/600x200/4A90E2/FFFFFF?text=Image+1)
+*First image in the sequence*
+
+![Second placeholder](https://via.placeholder.com/600x200/E24A4A/FFFFFF?text=Image+2)
+*Second image in the sequence*
+
+![Third placeholder](https://via.placeholder.com/600x200/4AE290/FFFFFF?text=Image+3)
+*Third image in the sequence*
+
+## Conclusion
+
+This demonstration shows the range of typographic and layout options available. While we don't have full HTML control for advanced features like true sidenotes, the clean Markdown approach ensures content remains portable and maintainable.
+
+The key to good web typography is not about having every possible feature, but about using the available tools thoughtfully to create a pleasant reading experience.

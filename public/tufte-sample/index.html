@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head id="head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <title>Welcome to Zine!</title>
+    <link type="text/css" rel="stylesheet" href="/refined.css">
+    
+
+  </head>
+  <body id="body">
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+      </nav>
+    </header>
+    
+  <article>
+    <h1>The Art of Digital Typography</h1>
+    <p class="subtitle">
+      <span>January 27, 2025</span>
+    </p>
+    <section><p>This is a demonstration of Tufte CSS styling with images and sidenotes. The design is based on the work of Edward Tufte and his books on information design.</p><h2>The Visual Display of Information</h2><p>One of the most distinctive features of Tufte’s style is the extensive use of sidenotes<sup class="footnote-ref"><a href="#fn-1" id="fn-1-ref-1">1</a></sup> instead of footnotes. This keeps the reader’s attention focused on the main text while providing easy access to supplementary information.</p><h3>Working with Images</h3><p>Images can be displayed in several ways. Here’s a standard image that fits within the main column:</p><p><figure><img src="/images/sample-chart.svg">
+<figcaption>A sample chart showing quarterly data</figcaption></figure> <em>This is a regular figure caption that appears below the image.</em></p><h2>Margin Notes and Figures</h2><p>Sometimes you want to place notes in the margin without numbering them<sup class="footnote-ref"><a href="#fn-2" id="fn-2-ref-1">2</a></sup>. These margin notes can contain any content, including small images or charts.</p><h3>Full-Width Figures</h3><p>For particularly important or detailed images, you can use the full width of the page:</p><p><figure><img src="https://via.placeholder.com/1200x400/E24A4A/FFFFFF?text=Full+Width+Image">
+<figcaption>A placeholder image showing full width</figcaption></figure> <em>This is a full-width figure that extends beyond the main text column. It’s useful for displaying detailed charts, maps, or photographs that benefit from the extra space.</em></p><h2>Mathematical Concepts</h2><p>Tufte CSS also handles mathematical notation elegantly. For instance, consider the famous Euler’s identity: e^(iπ) + 1 = 0<sup class="footnote-ref"><a href="#fn-3" id="fn-3-ref-1">3</a></sup>.</p><h2>Typography and Readability</h2><p>The choice of typeface is crucial for readability. This theme uses ET Book, a font specifically designed for the screen based on the typeface used in Tufte’s books<sup class="footnote-ref"><a href="#fn-4" id="fn-4-ref-1">4</a></sup>.</p><h3>New Thoughts</h3><p><strong>Sometimes you want</strong> to start a paragraph with emphasis to indicate a new section or thought. This is a traditional typographic device that helps guide the reader through the text.</p><h2>Code Examples</h2><p>When including code, it’s important to maintain readability while distinguishing it from the main text:</p><pre><code class="python"><span class="keyword">def</span> <span class="constructor constant variable function">calculate_information_density</span>(<span class="constructor constant variable">data</span>, <span class="constructor constant variable">visualization</span>):
+    <span class="string">&quot;&quot;&quot;Calculate the information density of a visualization.&quot;&quot;&quot;</span>
+    <span class="constructor constant variable">relevant_data_points</span> <span class="operator">=</span> <span class="constructor function_builtin constant variable function">count_relevant_points</span>(<span class="constructor constant variable">data</span>)
+    <span class="constructor constant variable">display_area</span> <span class="operator">=</span> <span class="constructor constant variable">visualization</span>.<span class="constructor property constant variable">width</span> <span class="operator">*</span> <span class="constructor constant variable">visualization</span>.<span class="constructor property constant variable">height</span>
+    <span class="keyword">return</span> <span class="constructor constant variable">relevant_data_points</span> <span class="operator">/</span> <span class="constructor constant variable">display_area</span>
+</code></pre>
+<p>This concept of information density<sup class="footnote-ref"><a href="#fn-5" id="fn-5-ref-1">5</a></sup> is central to Tufte’s philosophy.</p><h2>Responsive Design</h2><p>On smaller screens, sidenotes and margin notes automatically collapse and can be toggled by clicking on the note number. This ensures the design remains functional across all devices while maintaining the elegant typography on larger displays.</p><h3>A Note on Images</h3><p><figure><img src="https://via.placeholder.com/600x300/4AE290/FFFFFF?text=Another+Example">
+<figcaption>Another placeholder image</figcaption></figure></p><p>Images without captions can be placed inline with the text<sup class="footnote-ref"><a href="#fn-6" id="fn-6-ref-1">6</a></sup>. The margin provides space for commentary without interrupting the flow.</p><h2>Data Visualization Examples</h2><p>Here’s a list of key principles for effective data visualization:</p><ul><li><strong>Maximize data-ink ratio</strong>: Remove unnecessary graphical elements</li><li><strong>Show the data</strong>: Let the data speak for itself without distortion</li><li><strong>Provide context</strong>: Include relevant comparisons and benchmarks</li><li><strong>Respect the viewer</strong>: Don’t manipulate or mislead with graphics</li><li><strong>Layer information</strong>: Allow different levels of reading depth</li></ul><h3>Sample Data Table</h3><table><tr><th>Quarter</th><th>Revenue</th><th>Growth</th><th>Notes</th></tr><tr><td>Q1 2024</td><td>$1.2M</td><td>15%</td><td>Strong start</td></tr><tr><td>Q2 2024</td><td>$1.4M</td><td>17%</td><td>Exceeded targets</td></tr><tr><td>Q3 2024</td><td>$1.3M</td><td>-7%</td><td>Market adjustment</td></tr><tr><td>Q4 2024</td><td>$1.6M</td><td>23%</td><td>Holiday boost</td></tr></table><h2>Blockquotes and Citations</h2><p>As Tufte himself wrote:</p><blockquote><p>“Above all else, show the data. The data is the reason for the existence of the graphic. Everything else is secondary.”</p></blockquote><p>This principle guides all aspects of information design<sup class="footnote-ref"><a href="#fn-7" id="fn-7-ref-1">7</a></sup>.</p><h2>Interactive Elements</h2><p>While this is a static page, the principles of interaction design still apply:</p><ol><li><strong>Progressive disclosure</strong>: Start with overview, allow drilling down</li><li><strong>Direct manipulation</strong>: Let users interact with the data itself</li><li><strong>Immediate feedback</strong>: Respond quickly to user actions</li><li><strong>Reversibility</strong>: Allow users to undo and explore freely</li></ol><h2>Conclusion</h2><p>This sample demonstrates the key features of Tufte CSS: sidenotes, margin notes, figure handling, and beautiful typography. The result is a reading experience that respects both the content and the reader’s attention.</p><p>The beauty of this design lies in its simplicity and focus on content. By moving supplementary information to the margins<sup class="footnote-ref"><a href="#fn-8" id="fn-8-ref-1">8</a></sup>, the main text remains clean and uncluttered, while still providing rich context and additional details for interested readers.</p>
+    </section>
+  </article>
+
+  </body>
+</html>

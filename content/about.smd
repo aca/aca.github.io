@@ -1,56 +1,43 @@
 ---
 .title = "About",
 .date = @date("1990-01-01T00:00:00"),
-.author = "Sample Author",
-.layout = "index.shtml",
+.author = "Blog Author",
+.layout = "post.shtml",
 .draft = false,
 --- 
 
-## About Zine
-Zine is an MIT-licensed project created by [Loris Cro](https://kristoff.it) and
-other contributors listed on the [official repository](https://github.com/kristoff-it/zine/contributors).
+# About
 
-Zine is inspired by [Hugo](https://gohugo.io) but features an entirely custom set
-of authoring languages:
+안녕하세요! 이 블로그는 기술, 디자인, 그리고 일상에 대한 생각을 기록하는 공간입니다.
 
-- [Scripty](https://zine-ssg.io/docs/scripty/) is the small expression
-  language that both SuperHTML and SuperMD share to express templating logic.
+## 관심 분야
 
-- [SuperHTML](https://zine-ssg.io/docs/superhtml/) is the HTML templating
-   language used by Zine. Unlike most `{{curly braced}}` templating languages,
-   SuperHTML uses valid HTML syntax to express the templating logic, adding only
-   minor extensions to normal HTML.  
-   Thanks to this approach, it offers instant
-   syntax checking and autoformatting via [a CLI tool](https://github.com/kristoff-it/superhtml) as well as Language Server support ([VScode Extension](https://marketplace.visualstudio.com/items?itemName=LorisCro.super)).
-  
-  ># [NOTE]($block)
-  >The correct file extension for SuperHTML templates is `.shtml`.
+저는 다음과 같은 주제들에 관심이 있습니다:
 
-- [SuperMD](https://zine-ssg.io/docs/supermd/) is a superset of Markdown
-  that, instead of relying on inline HTML, offers new constructs for expressing
-  content embeds without pulling into your content needless layouting concerns.
-  A CLI tool and language server for SuperMD is in the works.
-  
-  ># [NOTE]($block)
-  >The correct file extension for SuperMD pages is `.smd`.
+- **소프트웨어 개발**: 깨끗한 코드와 효율적인 아키텍처 설계
+- **웹 기술**: 모던 웹 프레임워크와 성능 최적화
+- **타이포그래피**: 가독성 높은 텍스트와 아름다운 레이아웃
+- **미니멀리즘**: 단순함 속의 우아함 추구
 
-## Zine is alpha software
+## 이 블로그에 대해
 
-Zine is not yet complete. The main functionality is present and you will be able
-to build even moderately complex static websites without issue.
+이 블로그는 [Zine](https://zine-ssg.io/)으로 만들어졌습니다. Zine은 Zig로 작성된 정적 사이트 생성기로, 빠른 빌드 속도와 깔끔한 문법이 특징입니다.
 
-That said using Zine today does imply participating in the development process
-to some degree, which usually means inquiring about the development status of
-a feature you need, or reporting a bug.
+### 기술 스택
 
+- **Static Site Generator**: Zine
+- **Templating**: SuperHTML & SuperMD  
+- **Styling**: Custom CSS (Refined theme)
+- **Hosting**: GitHub Pages / Netlify
 
-Here are some quicklinks related to Zine:
+## 연락처
 
-- Official Website: https://zine-ssg.io/
-- Source Code: https://github.com/kristoff-it/zine/
-- Discord: https://discord.com/invite/B73sGxF
-  
+궁금한 점이나 피드백이 있으시다면 언제든 연락 주세요:
 
+- Email: hello@example.com
+- GitHub: [@username](https://github.com/username)
+- Twitter: [@username](https://twitter.com/username)
 
+---
 
-
+*"Simplicity is the ultimate sophistication."* — Leonardo da Vinci
