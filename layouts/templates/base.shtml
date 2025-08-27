@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <title :text="$site.title"></title>
     <link type="text/css" rel="stylesheet" href="$site.asset('refined.css').link()">
+    <link rel="alternate" type="application/rss+xml" title="$site.title" href="/index.xml">
     <super>
   </head>
   <body id="body">
     <header>
       <nav>
-        <a href="$site.page('').link()">HOME</a>
-        <a href="$site.page('about').link()">ABOUT</a>
+        <a href="$site.page('').link()">home</a>
+        <a href="$site.page('about').link()">about</a>
+        <a href="/index.xml">rss</a>
       </nav>
     </header>
     <super>
