@@ -1,13 +1,61 @@
 <extend template="base.shtml">
 <head id="head">
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const list = document.querySelector('.post-list');
+      if (!list) return;
+      
+      const items = Array.from(list.children);
+      const grouped = {};
+      
+      // Group items by year
+      items.forEach(item => {
+        const dateSpan = item.querySelector('.date');
+        if (dateSpan) {
+          const year = dateSpan.dataset.year;
+          if (!grouped[year]) {
+            grouped[year] = [];
+          }
+          grouped[year].push(item);
+        }
+      });
+      
+      // Clear list and rebuild with year groups
+      list.innerHTML = '';
+      
+      // Sort years in descending order
+      const years = Object.keys(grouped).sort((a, b) => b - a);
+      
+      years.forEach(year => {
+        // Add year heading
+        const yearHeading = document.createElement('h2');
+        yearHeading.className = 'year-heading';
+        yearHeading.textContent = year;
+        list.appendChild(yearHeading);
+        
+        // Add posts for this year
+        const yearList = document.createElement('ul');
+        yearList.className = 'year-posts';
+        grouped[year].forEach(item => {
+          // Remove year from date display
+          const dateSpan = item.querySelector('.date');
+          if (dateSpan) {
+            dateSpan.textContent = dateSpan.textContent.substring(5); // Remove "YYYY-"
+          }
+          yearList.appendChild(item);
+        });
+        list.appendChild(yearList);
+      });
+    });
+  </script>
 </head>
 <body id="body">
   <article>
     <h1 :text="$site.title"></h1>
     <section>
-      <ul :loop="$page.subpages()">
+      <ul class="post-list" :loop="$page.subpages()">
         <li>
-          <span class="date" :text="$loop.it.date.format('2006-01-02')"></span>: 
+          <span class="date" :text="$loop.it.date.format('2006-01-02')" data-year="$loop.it.date.format('2006')"></span>: 
           <a href="$loop.it.link()" :text="$loop.it.title"></a>
         </li>
       </ul>

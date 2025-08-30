@@ -190,8 +190,8 @@ section > table {
 section > dl,
 section > ol,
 section > ul {
-    width: 100%;
-    -webkit-padding-start: 2%;
+    width: 55%;
+    padding-left: 2em;
 }
 
 dt:not(:first-child),
@@ -347,10 +347,32 @@ span.newthought {
     font-size: 1.2em;
 }
 
-/* Homepage post list styling */
-article section ul li {
-    margin-bottom: 0.5rem;
+/* List styling */
+section ul {
     list-style-type: disc;
+}
+
+section ol {
+    list-style-type: decimal;
+}
+
+section ul li,
+section ol li {
+    margin-bottom: 0.5rem;
+    margin-left: 0;
+}
+
+/* Nested lists */
+section ul ul,
+section ol ul {
+    list-style-type: circle;
+    margin-top: 0.5rem;
+}
+
+section ul ol,
+section ol ol {
+    list-style-type: lower-alpha;
+    margin-top: 0.5rem;
 }
 
 input.margin-toggle {

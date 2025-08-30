@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+/* Import Crimson Pro - elegant serif font inspired by old-style typefaces */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
 /* =====================================================
    Refined CSS - Minimal and Sophisticated
    ===================================================== */
@@ -57,7 +60,7 @@ html {
 }
 
 body {
-    font-family: var(--font-serif);
+    font-family: 'Crimson Pro', serif;
     color: var(--text);
     background-color: var(--bg);
     max-width: 900px;
@@ -69,7 +72,7 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-serif);
+    font-family: 'Crimson Pro', serif;
     font-weight: 600;
     line-height: 1.2;
     margin-top: var(--space-xl);
@@ -109,7 +112,6 @@ p {
 a {
     color: var(--text);
     text-decoration: underline;
-    font-weight: bold;
 }
 
 a:hover {
@@ -155,50 +157,89 @@ li {
     margin-bottom: var(--space-sm);
 }
 
-/* Special list styling for index page */
-body > article > section > ul {
+/* Special list styling for index page - only for post lists */
+body > article > section > ul.post-list {
     list-style: none;
     padding-left: 0;
     margin-bottom: var(--space-xl);
 }
 
-body > article > section > ul li {
+body > article > section > ul.post-list li {
     margin-bottom: var(--space-sm);
     padding: var(--space-xs) 0;
 }
 
-body > article > section > ul li a {
+body > article > section > ul.post-list li a {
     color: var(--text);
     text-decoration: none;
     font-weight: normal;
 }
 
-body > article > section > ul li a:hover {
+body > article > section > ul.post-list li a:hover {
     color: var(--accent);
     text-decoration: none;
 }
 
-body > article > section > ul li .date {
+body > article > section > ul.post-list li .date {
     color: var(--text-light);
     font-family: var(--font-serif);
     font-size: 0.9rem;
 }
 
-/* Regular lists in blog posts - NO ANIMATIONS */
-article ul:not(body > article > section > ul),
-article ol {
-    /* Standard list styles without animations */
+/* Regular lists in blog posts */
+article section ul:not(.post-list) {
+    list-style-type: disc;
+    padding-left: var(--space-lg);
+}
+
+article section ol {
+    list-style-type: decimal;
+    padding-left: var(--space-lg);
 }
 
 /* Year headings in index */
-article section h2 {
-    font-size: 1.125rem;
-    font-weight: 600;
+.year-heading {
+    font-size: 1.5rem;
+    font-weight: 500;
     color: var(--text-light);
     margin-top: var(--space-xl);
     margin-bottom: var(--space);
     padding-bottom: var(--space-xs);
     border-bottom: 1px solid var(--border);
+}
+
+.year-heading:first-child {
+    margin-top: var(--space);
+}
+
+/* Year-grouped posts */
+.year-posts {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: var(--space-xl);
+}
+
+.year-posts li {
+    margin-bottom: var(--space-sm);
+    padding: var(--space-xs) 0;
+}
+
+.year-posts li a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.year-posts li a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.year-posts li .date {
+    color: var(--text-lighter);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    margin-right: var(--space-sm);
 }
 
 /* Blockquotes */
