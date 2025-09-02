@@ -1,0 +1,73 @@
+---
+.title = "hack for python in nixos",
+.date = @date("2025-08-20T00:00:00"),
+.author = "Author",
+.layout = "post.shtml",
+.draft = false,
+---
+
+Python on NixOS can be quite frustrating.
+[This page](https://wiki.nixos.org/wiki/Python) presents lot of options, but does not provide a definitive recommendation.
+I rarely work on production python projects, so in the end, I prefer not to use nix for Python projects.
+
+Here's home-manager module to set up Python environment on NixOS.
+
+Python is managed by [uv](https://github.com/astral-sh/uv). and uv runs in a sandboxed environment.
+
+```nix
+{
+  pkgs,
+  ...
+}:
+{
+  home.packages = [
+    (pkgs.writeShellScriptBin "python" ''
+      exec uv run --isolated python "$@"
+    '')
+
+    (pkgs.buildFHSEnv {
+      name = "uv";
+      targetPkgs =
+        pkgs: with pkgs; [
+          uv
+          gcc
+          binutils
+
+          zlib
+          bzip2
+          zstd
+          readline
+          openssl
+          gdbm
+          ncurses
+          sqlite
+          tk
+          libffi
+          expat
+          xz
+
+          blas
+          lapack
+          gfortran
+
+          stdenv.cc.cc.lib
+          libxml2
+          libxslt
+          curl
+          git
+        ];
+
+      runScript = "uv";
+
+      profile = ''
+        export LD_LIBRARY_PATH=/lib:/lib64:$LD_LIBRARY_PATH
+        export LIBRARY_PATH=/lib:/lib64:$LIBRARY_PATH
+        export C_INCLUDE_PATH=/include:$C_INCLUDE_PATH
+        export CPLUS_INCLUDE_PATH=/include:$CPLUS_INCLUDE_PATH
+        export PKG_CONFIG_PATH=/lib/pkgconfig:$PKG_CONFIG_PATH
+      '';
+    })
+  ];
+}
+```
+
