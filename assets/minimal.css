@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
-/* Import Crimson Pro font */
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+/* Import Crimson Pro and Source Code Pro fonts */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Source+Code+Pro:wght@400;500;600&display=swap');
 
 * {
     margin: 0;
@@ -96,6 +96,53 @@ a:hover {
     font-family: monospace;
     font-size: 14px;
     min-width: 50px;
+}
+
+/* Code styling */
+code, pre {
+    font-family: 'Source Code Pro', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.75rem;
+    line-height: 1.42;
+    font-weight: 400;
+}
+
+code {
+    background: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+pre {
+    background: #f8f8f8;
+    padding: 12px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.75rem;
+}
+
+/* Dark mode code styling */
+@media (prefers-color-scheme: dark) {
+    code {
+        background: #2a2a2a;
+        color: #e0e0e0;
+    }
+    
+    pre {
+        background: #1e1e1e;
+        color: #e0e0e0;
+    }
+    
+    pre code {
+        background: none;
+        color: inherit;
+    }
 }
 
 /* Article pages */

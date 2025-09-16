@@ -11,8 +11,7 @@
   <body id="body">
     <super>
     <footer>
-      <a href="mailto:acadx0@gmail.com">acadx0@gmail.com</a> · 
-      <a href="https://github.com/aca">github</a>
+      <a href="/about/">About</a> · <a href="mailto:acadx0@gmail.com">acadx0@gmail.com</a> · <a href="https://github.com/aca">GitHub</a>
     </footer>
   </body>
 </html>

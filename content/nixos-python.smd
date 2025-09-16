@@ -1,38 +1,38 @@
 ---
-.title = "hack for python in nixos",
+.title = "nix: hack for python in nixos",
 .date = @date("2025-08-20T00:00:00"),
 .author = "Author",
 .layout = "post.shtml",
 .draft = false,
 ---
 
-Python on NixOS can be quite frustrating.
-[This page](https://wiki.nixos.org/wiki/Python) presents lot of options, but does not provide a definitive recommendation.
-I rarely work on production python projects, so in the end, I prefer not to use nix for Python projects.
+Using python on NixOS can be quite frustrating. While [this page](https://wiki.nixos.org/wiki/Python) presents many options, it doesn't provide a definitive recommendation on which approach to use.
 
-Here's home-manager module to set up Python environment on NixOS.
+Since I use python mostly for scripting, I've avoid using nix for python. Instead, I leverage NixOS's buildFHSEnv to create a sandboxed environment where I can use traditional python tooling.
 
-Python is managed by [uv](https://github.com/astral-sh/uv). and uv runs in a sandboxed environment.
+Here's a home-manager module that sets up a python environment on NixOS using [uv](https://github.com/astral-sh/uv), running within this sandboxed environment.
 
 ```nix
 {
+  config,
+  inputs,
   pkgs,
+  lib,
   ...
 }:
-{
-  home.packages = [
-    (pkgs.writeShellScriptBin "python" ''
-      exec uv run --isolated python "$@"
-    '')
-
-    (pkgs.buildFHSEnv {
-      name = "uv";
+let
+  mkUvFHS =
+    name:
+    pkgs.buildFHSEnv {
+      inherit name;
+      runScript = name;
       targetPkgs =
         pkgs: with pkgs; [
           uv
           gcc
           binutils
 
+          libgcc
           zlib
           bzip2
           zstd
@@ -56,9 +56,6 @@ Python is managed by [uv](https://github.com/astral-sh/uv). and uv runs in a san
           curl
           git
         ];
-
-      runScript = "uv";
-
       profile = ''
         export LD_LIBRARY_PATH=/lib:/lib64:$LD_LIBRARY_PATH
         export LIBRARY_PATH=/lib:/lib64:$LIBRARY_PATH
@@ -66,8 +63,44 @@ Python is managed by [uv](https://github.com/astral-sh/uv). and uv runs in a san
         export CPLUS_INCLUDE_PATH=/include:$CPLUS_INCLUDE_PATH
         export PKG_CONFIG_PATH=/lib/pkgconfig:$PKG_CONFIG_PATH
       '';
-    })
+    };
+in
+{
+  home.packages = [
+    (pkgs.writeShellScriptBin "py" ''
+      exec uv run python "$@"
+    '')
+
+    (mkUvFHS "uvx")
+    (mkUvFHS "uv")
   ];
 }
 ```
 
+With this setup, you can use `uv` to manage multiple python versions.
+
+```
+uv python install cpython-3.13.3-linux-x86_64-gnu
+```
+
+Run multiple python versions
+```
+λ uv run python --version
+Python 3.10.17
+
+λ uv init
+Initialized project `py`
+
+λ uv python pin cpython-3.13.3-linux-x86_64-gnu
+Updated `.python-version` from `3.10` -> `cpython-3.13.3-linux-x86_64-gnu`
+
+λ uv run python --version
+Using CPython 3.13.3
+Creating virtual environment at: .venv
+Python 3.13.3
+```
+
+Latest yt-dlp with uvx
+```
+uvx yt-dlp@latest --help
+```

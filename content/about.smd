@@ -1,6 +1,6 @@
 ---
 .title = "About",
-.date = @date("2024-01-01T00:00:00"),
+.date = @date(""),
 .author = "Blog Author",
 .layout = "page.shtml",
 .draft = false,

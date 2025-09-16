@@ -4,11 +4,17 @@
     document.addEventListener('DOMContentLoaded', function() {
       const list = document.querySelector('.post-list');
       if (!list) return;
-      
+
       const items = Array.from(list.children);
       const grouped = {};
-      
+
       items.forEach(item => {
+        const link = item.querySelector('a');
+        if (link && link.textContent === 'About') {
+          item.remove();
+          return;
+        }
+
         const dateSpan = item.querySelector('.date');
         if (dateSpan) {
           const year = dateSpan.dataset.year;
@@ -18,17 +24,17 @@
           grouped[year].push(item);
         }
       });
-      
+
       list.innerHTML = '';
-      
+
       const years = Object.keys(grouped).sort((a, b) => b - a);
-      
+
       years.forEach((year, index) => {
         const yearHeading = document.createElement('h2');
         yearHeading.className = 'year';
         yearHeading.textContent = year;
         list.appendChild(yearHeading);
-        
+
         const yearList = document.createElement('ul');
         yearList.className = 'year-posts';
         grouped[year].forEach(item => {

@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&display=swap');
+
 /* Import ET Book styles
    adapted from https://github.com/edwardtufte/et-book/blob/gh-pages/et-book.css */
 
@@ -304,29 +307,30 @@ div.table-wrapper {
 }
 
 code, pre > code {
-    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 1.0rem;
+    font-family: "Source Code Pro", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 0.85rem;
     line-height: 1.42;
+    font-weight: 400;
     -webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS. See https://github.com/edwardtufte/tufte-css/issues/81#issuecomment-261953409 */
 }
 
 .sans > code {
-    font-size: 1.2rem;
+    font-size: 0.95rem;
 }
 
 h1 > code,
 h2 > code,
 h3 > code {
-    font-size: 0.80em;
+    font-size: 0.75em;
 }
 
 .marginnote > code,
 .sidenote > code {
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 pre > code {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     width: 52.5%;
     margin-left: 2.5%;
     overflow-x: auto;

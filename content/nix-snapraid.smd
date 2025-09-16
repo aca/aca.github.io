@@ -1,0 +1,15 @@
+---
+.title = "nix: DIY NAS with nix+snapraid+mergerfs",
+.date = @date("2025-09-16T00:00:00"),
+.author = "aca",
+.layout = "post.shtml",
+.draft = false,
+---
+
+DRAFT
+
+## hardware
+
+## software
+
+https://codeberg.org/aca/nix-config/src/branch/main/archive-0.storage.nix
