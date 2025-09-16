@@ -49,7 +49,7 @@
   <div class="container">
     <ul class="post-list" :loop="$page.subpages()">
       <li>
-        <span class="date" :text="$loop.it.date.format('01/06')" data-year="$loop.it.date.format('2006')"></span>
+        <span class="date" :text="$loop.it.date.format('01/02')" data-year="$loop.it.date.format('2006')"></span>
         <a href="$loop.it.link()" :text="$loop.it.title"></a>
       </li>
     </ul>
