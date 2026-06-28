@@ -26,9 +26,10 @@ I just wanted something to back my personal tools. The setup I wanted was:
 In the end, I went with AWS's [pgactive](https://github.com/aws/pgactive), and it's worked out pretty well:
 
 - runs on NixOS with containers
-- active/active async replication (including DDL) in a mesh topology
+- active/active async replication in a mesh topology
 - nothing extra to run: pgactive is just a postgres extension, no etcd, k8s ...
 - each app runs next to postgres and connects over localhost, no proxy
+- pgactive is built on logical replication, which has [limitations](https://www.postgresql.org/docs/current/logical-replication-restrictions.html). 
 
 #### Setup
 
@@ -101,7 +102,7 @@ SQL
 
 Write to one node, read it back from the other, both directions:
 ```
-psql "postgres://postgres@oci-impx-a1:5432/postgres" -c "CREATE TABLE xxx (id SERIAL PRIMARY KEY, name TEXT); INSERT INTO xxx (name) VALUES ('alice'); SELECT * FROM xxx;"
+$ psql "postgres://postgres@oci-impx-a1:5432/postgres" -c "CREATE TABLE xxx (id SERIAL PRIMARY KEY, name TEXT); INSERT INTO xxx (name) VALUES ('alice'); SELECT * FROM xxx;"
 CREATE TABLE
 INSERT 0 1
  id | name
@@ -125,5 +126,5 @@ $ psql "postgres://postgres@oci-impx-a1:5432/postgres" -c 'select * from xxx'
   2 | john
 ```
 
-I haven't tested every setup, but it's held up fine so far. Worth a look if your needs are similar.
+And that's it! I haven't tested every failure scenario, but it's held up fine so far. Worth a look if your needs are similar.
 
