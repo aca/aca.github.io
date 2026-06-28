@@ -1,0 +1,11 @@
+---
+.title = "blog",
+.date = @date("2026-06-28T00:00:00"),
+.author = "rok",
+.layout = "post.shtml",
+.draft = false,
+---
+
+Hello world
+
+This blog is a collection of simple notes from my personal zettelkasten — just the things I want to share.

@@ -1,0 +1,44 @@
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+pre {
+  background: #f0f0f0;
+  padding: 0.5em 0.75em;
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.np {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding-bottom: .5em;
+  font-style: italic;
+}
+
+.post-row {
+  margin-bottom: 0.5em;
+}
+
+footer {
+  margin-top: 1em;
+}
+
+footer .np {
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 1.4em;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+h3 {
+  font-size: 1.05em;
+}

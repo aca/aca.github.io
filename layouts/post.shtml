@@ -1,0 +1,12 @@
+<extend template="base.shtml">
+<head id="head"></head>
+<body id="body">
+  <header><strong :text="$page.title"></strong> | <a href="$site.page('').link()">home</a><hr></header>
+  <main>
+    <div :html="$page.content()"></div>
+  </main>
+  <nav><div class="np">
+    <span :if="$page.prevPage?()"><a href="$if.link()">← <span :text="$if.title"></span></a></span>
+    <span :if="$page.nextPage?()"><a href="$if.link()"><span :text="$if.title"></span> →</a></span>
+  </div></nav>
+</body>

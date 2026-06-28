@@ -1,0 +1,9 @@
+<extend template="base.shtml">
+<head id="head"></head>
+<body id="body">
+  <div class="site-title"><b :text="$site.title"></b></div>
+  <hr>
+  <div class="posts" :loop="$page.subpages()">
+    <div class="post-row"><span :text="$loop.it.date.format('2006-01-02')"></span>: <a href="$loop.it.link()" :text="$loop.it.title"></a></div>
+  </div>
+</body>
