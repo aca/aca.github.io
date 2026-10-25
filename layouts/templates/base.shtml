@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head id="head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title :text="$site.title"></title>
+    <link type="text/css" rel="stylesheet" href="$site.asset('style.css').link()">
+    <link rel="alternate" type="application/rss+xml" href="$site.host_url.addPath('index.xml')" title="$site.title">
+    <super>
+  </head>
+  <body>
+    <header>
+      [<a href="$site.page('').link()">home</a>|<a href="mailto:acadx0@gmail.com">email</a>|<a href="https://github.com/aca">github</a>]
+      <span :text="$page.title"></span>
+    </header>
+    <main id="main">
+      <super>
+    </main>
+    <footer>
+      [<a href="https://github.com/aca/aca.github.io">source</a>]
+      [<a href="$site.host_url.addPath('index.xml')">rss</a>]
+    </footer>
+  </body>
+</html>

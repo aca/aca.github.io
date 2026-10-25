@@ -1,0 +1,131 @@
+---
+.title = "postgres cluster with nix + pgactive",
+.date = @date("2026-06-28T01:00:00"),
+.author = "rok",
+.layout = "post.shtml",
+.tags = ["nix", "postgres"],
+.draft = false,
+---
+
+WARNING: I'm not a database expert, and I've never run a database seriously in production.
+
+#### Requirements
+
+Postgres is the de facto standard for relational databases, but running it as a cluster is surprisingly hard.
+There are many "postgres replication" and "postgres cluster" options, but most of them are
+either too complex to configure or unclear about license and long-term maintenance.
+I started with k8s + CloudNativePG, but I have had enough bad experiences that I don't trust "kubernetes operators".
+
+I just wanted a database for my personal tools. My requirements were:
+
+- runs on free-tier VMs (~1 CPU, 1 GB RAM) with mixed architectures (amd64/arm64)
+- HA with real-time replication
+- few extra components for replication and clustering
+- works over a tailnet (tailscale)
+- simple maintenance, simple architecture
+
+In the end, I chose [pgactive](https://github.com/aws/pgactive) from AWS, and it has worked well:
+
+- runs on NixOS in containers
+- active/active async replication in a mesh topology
+- nothing extra to run: pgactive is just a postgres extension. No etcd, no k8s.
+- each app runs next to postgres and connects over localhost, without a proxy
+- pgactive is built on logical replication, so it has the same [limitations](https://www.postgresql.org/docs/current/logical-replication-restrictions.html).
+
+#### Setup
+
+First, postgres itself. All my servers run NixOS, so postgres runs on NixOS too.
+
+NixOS has a [services.postgresql](https://nixos.wiki/wiki/PostgreSQL) module, and I started with it. But tying postgres to the system's nixpkgs caused problems: the binary cache does not work well on updates, pinning a version is painful once you depend on extensions, and running more than one instance is not easy. Containers were simpler to maintain.
+
+I built the [image](https://github.com/aca/containers/tree/main/postgres-18) with nix for reproducibility. It includes the extensions (pgvector, pg_rational, pgactive, pg_clickhouse) and settings. With this image, each node only needs this system config:
+
+```nix
+virtualisation.oci-containers = {
+  containers.pg = {
+    image = "ghcr.io/aca/containers/postgres-18:latest-arm64";
+    extraOptions = [ "--network=host" ];
+    volumes = [ "/var/lib/pg:/var/lib/postgresql/data" ];
+  };
+};
+```
+
+### pgactive
+
+With the postgres container running on two nodes (`oci-xnzm-a1`, `oci-impx-a1`), start with the seed node (`oci-xnzm-a1`):
+
+```sh
+ssh root@oci-xnzm-a1 'podman exec -i pg psql -v ON_ERROR_STOP=1 -U postgres -d postgres' <<'SQL'
+CREATE EXTENSION IF NOT EXISTS pgactive;
+
+CREATE SERVER "oci-xnzm-a1" FOREIGN DATA WRAPPER pgactive_fdw
+  OPTIONS (host 'oci-xnzm-a1', port '5432', dbname 'postgres');
+CREATE USER MAPPING FOR postgres SERVER "oci-xnzm-a1" OPTIONS (user 'postgres');
+
+CREATE SERVER "oci-impx-a1" FOREIGN DATA WRAPPER pgactive_fdw
+  OPTIONS (host 'oci-impx-a1', port '5432', dbname 'postgres');
+CREATE USER MAPPING FOR postgres SERVER "oci-impx-a1" OPTIONS (user 'postgres');
+
+SELECT pgactive.pgactive_create_group(
+  node_name := 'pg-oci-xnzm-a1',
+  node_dsn  := 'user_mapping=postgres pgactive_foreign_server=oci-xnzm-a1'
+);
+SELECT pgactive.pgactive_wait_for_node_ready();
+SELECT node_name, node_status FROM pgactive.pgactive_nodes ORDER BY node_name;
+SQL
+```
+
+Then, on `oci-impx-a1`, join the seed node (`oci-xnzm-a1`) with `join_using_dsn`. This copies the whole database, including data that already exists at join time.
+
+```sh
+ssh root@oci-impx-a1 'podman exec -i pg psql -v ON_ERROR_STOP=1 -U postgres -d postgres' <<'SQL'
+CREATE EXTENSION IF NOT EXISTS pgactive;
+
+CREATE SERVER "oci-xnzm-a1" FOREIGN DATA WRAPPER pgactive_fdw
+  OPTIONS (host 'oci-xnzm-a1', port '5432', dbname 'postgres');
+CREATE USER MAPPING FOR postgres SERVER "oci-xnzm-a1" OPTIONS (user 'postgres');
+
+CREATE SERVER "oci-impx-a1" FOREIGN DATA WRAPPER pgactive_fdw
+  OPTIONS (host 'oci-impx-a1', port '5432', dbname 'postgres');
+CREATE USER MAPPING FOR postgres SERVER "oci-impx-a1" OPTIONS (user 'postgres');
+
+SELECT pgactive.pgactive_join_group(
+  node_name      := 'pg-oci-impx-a1',
+  node_dsn       := 'user_mapping=postgres pgactive_foreign_server=oci-impx-a1',
+  join_using_dsn := 'user_mapping=postgres pgactive_foreign_server=oci-xnzm-a1'
+);
+SELECT pgactive.pgactive_wait_for_node_ready();
+SELECT node_name, node_status FROM pgactive.pgactive_nodes ORDER BY node_name;
+SQL
+```
+
+### verify replication
+
+Write to one node and read from the other, in both directions:
+```
+$ psql "postgres://postgres@oci-impx-a1:5432/postgres" -c "CREATE TABLE xxx (id SERIAL PRIMARY KEY, name TEXT); INSERT INTO xxx (name) VALUES ('alice'); SELECT * FROM xxx;"
+CREATE TABLE
+INSERT 0 1
+ id | name
+----+-------
+  1 | alice
+(1 row)
+
+$ psql "postgres://postgres@oci-xnzm-a1:5432/postgres" -c 'select * from xxx'
+ id | name
+----+-------
+  1 | alice
+(1 row)
+
+$ psql "postgres://postgres@oci-xnzm-a1:5432/postgres" -c "INSERT INTO xxx (name) VALUES ('john');"
+INSERT 0 1
+
+$ psql "postgres://postgres@oci-impx-a1:5432/postgres" -c 'select * from xxx'
+ id | name
+----+-------
+  1 | alice
+  2 | john
+```
+
+That's it! I haven't tested every failure scenario, but it has worked fine so far. It may be worth a look if you have similar needs.
+

@@ -1,0 +1,26 @@
+---
+.title = "termux-nix",
+.date = @date("2026-07-28T09:14:51"),
+.author = "rok",
+.layout = "post.shtml",
+.tags = ["nix", "android", "termux"],
+.draft = false,
+---
+
+![](termux-nix.jpg)
+
+[termux-nix](https://github.com/aca/termux-nix): an Android X11 desktop configured with nix.
+
+Lately, I've been having fun with termux and termux-x11. Carrying a laptop all the time is a hassle,
+and I have always wanted to build a cyberdeck. But SoC-based devices often have hardware quality issues,
+so I ended up with termux / termux-x11 on Android.
+
+I worked outside with this setup for more than 30 minutes, and I'm quite happy with the result.
+I tried [nix-on-droid](https://github.com/nix-community/nix-on-droid),
+but chose native termux because of the proot overhead. So I made a project called [termux-nix](https://github.com/aca/termux-nix):
+
+- builds nix derivations outside Android, because building inside proot crashes randomly
+- rsyncs the result to termux and runs scripts, similar to home-manager
+- runs nix applications inside a proot container that shares /tmp, storage, etc. with termux
+
+"Happy Hacking!" 

@@ -1,0 +1,18 @@
+<extend template="base.shtml">
+<head id="head"></head>
+<main id="main">
+  <section>
+    <div class="doc-head">
+      <div><span class="tags" :loop="$page.tags"><span :text="$loop.it"></span></span><span :text="$page.date.format('2006-01-02')"></span></div>
+    </div>
+    <div class="doc-title" :text="$page.title"></div>
+    <div class="content" :html="$page.content()"></div>
+    <nav>
+      <span :if="$page.prevPage?()"><a href="$if.link()">← <span :text="$if.title"></span></a></span>
+      <span :if="$page.nextPage?()"><a href="$if.link()"><span :text="$if.title"></span> →</a></span>
+    </nav>
+  </section>
+  <aside :loop="$site.page('').subpages()">
+    <a href="$loop.it.link()" class="$loop.it.link().eql($page.link()).then('current', '')" :text="$loop.it.title"></a>
+  </aside>
+</main>

@@ -1,0 +1,13 @@
+<extend template="base.shtml">
+<head id="head"></head>
+<main id="main">
+  <section>
+    <div class="doc-head">
+      <div><span></span><span :text="$site.title"></span></div>
+    </div>
+    <div class="doc-title">Notes</div>
+    <div class="posts" :loop="$page.subpages()">
+      <div class="post-row"><span :text="$loop.it.date.format('2006-01-02')"></span>  <a href="$loop.it.link()" :text="$loop.it.title"></a></div>
+    </div>
+  </section>
+</main>
